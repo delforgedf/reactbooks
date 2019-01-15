@@ -25,7 +25,20 @@ class BooksApp extends Component {
         books
        })
     });
-  } 
+  }
+  
+  handleCurrentStatusBook = book => {
+    const currentBooks = this
+      .state
+      .books
+      .filter(bookItem => {
+        if (bookItem.id === book.id) {
+          return bookItem;
+        }
+        return false;
+      });
+    return currentBooks.length > 0 ? currentBooks[0].shelf : 'none';
+  }
 
 
   onChangeShelf = ( book ,  shelf ) => {
@@ -38,7 +51,6 @@ class BooksApp extends Component {
             toast("Erro on updated", { autoClose: 1500 });
           }
           this.fetchBooks();
-          console.log(this.state)
           toast("Update complete", { autoClose: 1500 });
         } catch (error) {
           toast("Erro on updated", { autoClose: 1500 });
@@ -47,7 +59,6 @@ class BooksApp extends Component {
   }
 
   render() {
-    console.log(this.state.books)
     return (
       <div className="app">
        <Route
@@ -66,6 +77,7 @@ class BooksApp extends Component {
           render={() => (
             <Search
               onChangeShelf={this.onChangeShelf}
+              handleCurrentStatusBook={this.handleCurrentStatusBook}
             />
           )}
         />

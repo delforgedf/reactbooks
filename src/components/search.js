@@ -22,9 +22,7 @@ class Search extends Component{
         this.setState({ searchedBooks: [] });
         return;
       }
-  
       this.setState({ isLoading: true });
-  
       search(bookName).then(findedBooks => {
         this.setState({ isLoading: false, noResults: false });
         if (findedBooks.error === 'empty query') {
@@ -49,9 +47,8 @@ class Search extends Component{
             type="text" 
             placeholder="Search by title or author"
             value={this.state.search}
-            onChange={event => {
-              this.setState({ search: event.target.value, searchedBooks: [] });
-              this.findBook();
+            onChange={ (event) => {
+              this.setState({ search: event.target.value, searchedBooks: [] } , () => this.findBook());
             }}
           />
         </div>
@@ -70,6 +67,7 @@ class Search extends Component{
               <Book 
                 book={bookItem} 
                 onChangeShelf={this.props.onChangeShelf}
+                handleCurrentStatusBook={this.props.handleCurrentStatusBook}
               />
             </li>
           ))}
@@ -82,6 +80,8 @@ class Search extends Component{
 
 Search.propTypes = {
   onChangeShelf: PropTypes.func.isRequired,
+  handleCurrentStatusBook: PropTypes.func.isRequired,
+
 };
 
 export default Search;

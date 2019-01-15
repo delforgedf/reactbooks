@@ -1,7 +1,7 @@
 import React  from 'react';
 import { PropTypes }  from 'prop-types';
 
-const Book = ({book , onChangeShelf})=> {
+const Book = ({book , onChangeShelf , handleCurrentStatusBook})=> {
   
   const thumb = book.imageLinks ? book.imageLinks.thumbnail : 'https://via.placeholder.com/128x193.png';
 
@@ -11,7 +11,7 @@ const Book = ({book , onChangeShelf})=> {
         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${thumb}")` }}></div>
         <div className="book-shelf-changer">
           <select 
-            defaultValue={ !book.shelf ? 'none' : book.shelf}
+            defaultValue={ !book.shelf ? handleCurrentStatusBook(book) : book.shelf}
             onChange={ e => onChangeShelf(book,e.target.value)}
           >
             <option value="move" disabled>Move to...</option>
@@ -25,7 +25,7 @@ const Book = ({book , onChangeShelf})=> {
       <div className="book-title">{book.title}</div>
       <div className="book-authors">
       {book.authors && book.authors.map(author => 
-        <div key={book.id} className="book-authors">{author}</div>
+        <div key={book.id+author} className="book-authors">{author}</div>
       )}
       </div>
     </div>
@@ -34,5 +34,7 @@ const Book = ({book , onChangeShelf})=> {
 
 Book.propTypes = {
   onChangeShelf: PropTypes.func.isRequired,
+  handleCurrentStatusBook: PropTypes.func
+
 }
 export default Book;
