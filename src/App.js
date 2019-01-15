@@ -45,17 +45,16 @@ class BooksApp extends Component {
     api
       .update(book, shelf)
       .then(data => {
-        try {
-          if (!data) {
-            throw new Error('Error on update book status.');
-            toast("Erro on updated", { autoClose: 1500 });
-          }
-          this.fetchBooks();
-          toast("Update complete", { autoClose: 1500 });
-        } catch (error) {
+        if (!data) {
+          throw new Error('Error on update book status.');
           toast("Erro on updated", { autoClose: 1500 });
         }
-      });
+        this.fetchBooks();
+        toast("Update complete", { autoClose: 1500 }); 
+      })
+      .catch( e => {
+        toast(e, { autoClose: 1500 });
+      })
   }
 
   render() {

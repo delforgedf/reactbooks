@@ -1,7 +1,7 @@
 
 # React Books
 
-A very simple app to manage lists of current reading, want to read and already read books.
+A very simple app to manage lists of books.
 
 
 ## Installation
@@ -12,7 +12,7 @@ $ npm install
 
 ## Development
 
-Runs in http://localhost:3000.
+Runs in http://localhost:3000
 
 ```bash
 $ npm start
